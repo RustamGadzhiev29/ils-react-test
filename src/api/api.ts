@@ -1,4 +1,5 @@
 import axios from "axios";
+import { DataType } from "../components/table/Table";
 
 const BASE_URL = "http://router.project-osrm.org/route/v1/driving/";
 const instance = axios.create({
@@ -6,9 +7,10 @@ const instance = axios.create({
 });
 
 const coordinatesApi = {
-  async getCoordinates(route: DomainCoordinatesType) {
+  async getCoordinates(route: DataType) {
     const response = await instance.get(
-      `${route.endLatitude},${route.startLongitude};${route.endLatitude},${route.endLongitude}?alternatives=false&steps=false&geometries=geojson&overview=full`
+      // eslint-disable-next-line prettier/prettier
+      `${route.startLatitude},${route.startLongitude};${route.endLatitude},${route.endLongitude}?alternatives=false&steps=false&geometries=geojson&overview=full`,
     );
     const points = response.data.routes[0].geometry.coordinates;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,13 +19,11 @@ const coordinatesApi = {
   },
 };
 
-export type DomainCoordinatesType = {
-  key: React.Key;
-  orderNumber: string;
-  startLongitude: number;
-  startLatitude: number;
-  endLongitude: number;
-  endLatitude: number;
-};
+export type DomainCoordinatesType = [
+  startLongitude: number,
+  startLatitude: number,
+  endLongitude: number,
+  endLatitude: number
+];
 
 export default coordinatesApi;
