@@ -1,13 +1,12 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Map from "./components/map/Map";
-import LayoutComponent from "./components/layout/Layout";
+import "./App.scss";
+import ContentComponent from "./components/layout/Layout";
+
 
 function App() {
   return (
     <div className="App">
-     <LayoutComponent/>
+     <ContentComponent/>
     </div>
   );
 }

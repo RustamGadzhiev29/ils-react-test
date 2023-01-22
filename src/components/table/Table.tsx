@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { fetchCoordinatesTC } from "../../features/routeReducer";
-import { useAppSelector, useTypedDispatch } from "../../redux/store";
+import { GetPositionPoints } from "../../store/slice/routeSlice";
+import { useAppSelector, useTypedDispatch } from "../../store/store";
+import styles from "./Table.module.scss";
+import {
+  selectPositionCoords,
+  selectTableCoords,
+} from "../../store/selectors/selectors";
+import { DataType } from "../../store/types/types";
 
-export type DataType = {
-  key: React.Key;
-  orderNumber: string;
-  startLongitude: number;
-  startLatitude: number;
-  endLongitude: number;
-  endLatitude: number;
-};
+const DECREMENT_VALUE = 1;
 
 const columns: ColumnsType<DataType> = [
   {
@@ -36,49 +36,36 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-// rowSelection object indicates the need for row selection
-
 const TableComponent: React.FC = () => {
-  const dataSource = useAppSelector(
-    (coordinatesOrder) => coordinatesOrder.position.tableCoords
-  );
   const dispatch = useTypedDispatch();
+
+  const tableCoords = useAppSelector(selectTableCoords);
+  const positionCoords = useAppSelector(selectPositionCoords);
+
   const onClickHandler = (e: React.MouseEvent<any, MouseEvent>) => {
+    const keyNumber = e.currentTarget.dataset.rowKey - DECREMENT_VALUE;
     dispatch(
-      fetchCoordinatesTC(dataSource[e.currentTarget.dataset.rowKey - 1])
+      GetPositionPoints({
+        data: tableCoords[keyNumber],
+      })
     );
   };
 
-  const [select, setSelect] = useState({
-    selectedRowKeys: [],
-    loading: false,
-  });
-
-  console.log("selectedRowKeys", select);
-
-  const { selectedRowKeys, loading } = select;
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: (selectedRowKeys: any) => {
-      setSelect({
-        ...select,
-        selectedRowKeys,
-      });
-    },
-  };
   return (
-    <div>
-      <Table
-        onRow={() => {
-          return {
-            onClick: onClickHandler,
-          };
-        }}
-        rowSelection={rowSelection}
-        columns={columns}
-        dataSource={dataSource}
-      />
-    </div>
+    <Table
+      className={styles.table}
+      onRow={() => {
+        return {
+          onClick: onClickHandler,
+        };
+      }}
+      columns={columns}
+      dataSource={tableCoords}
+      pagination={false}
+      rowClassName={(record) =>
+        record.key === positionCoords?.key ? styles.activeRow : ""
+      }
+    />
   );
 };
 

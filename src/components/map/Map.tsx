@@ -1,28 +1,41 @@
 import React from "react";
 import { MapContainer, Polyline, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { Markers } from "../markers/Markers";
+import { LatLngExpression } from "leaflet";
+import styles from "./Map.module.scss";
+import { useAppSelector } from "../../store/store";
+import {
+  selectPositionCoords,
+  selectRoute,
+} from "../../store/selectors/selectors";
 
-// import { COORDINATS_URL } from "../../shared/constants";
-import { useAppSelector } from "../../redux/store";
-import { Markers } from "./Markers";
+const Map: React.FC = () => {
+  const positionCoords = useAppSelector(selectPositionCoords);
+  const route = useAppSelector(selectRoute);
+  const defaultCenterCoord: LatLngExpression[] = [
+    { lat: 59.9342802, lng: 30.3350986 },
+  ];
 
-const Map = () => {
-  const route = useAppSelector((data) => data.position.route);
-  const coords = useAppSelector((data) => data.position.coordsPosition);
-  console.log(route);
+  defaultCenterCoord.map((m) => m);
 
   return (
-    <div>
-      <MapContainer center={[59.9342802, 30.3350986]} zoom={14} scrollWheelZoom>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        order.fromLat, order.fromIng
-        {coords && <Markers coords={coords} />}
-        <Polyline pathOptions={{ color: "red" }} positions={route} />
-      </MapContainer>
-    </div>
+    <MapContainer
+      className={styles.mapContainer}
+      center={[59.9342802, 30.3350986]}
+      zoom={12}
+      scrollWheelZoom
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {positionCoords && <Markers coords={positionCoords} />}
+      <Polyline
+        pathOptions={{ color: "#6ab0e9", weight: 5 }}
+        positions={route}
+      />
+    </MapContainer>
   );
 };
 

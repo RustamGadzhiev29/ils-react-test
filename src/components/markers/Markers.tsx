@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import L, { Icon } from "leaflet";
-import { OrderCoordsType } from "../../features/routeReducer";
+import { DataType } from "../../store/types/types";
 
 type PropsType = {
-  coords: OrderCoordsType;
+  coords: DataType;
 };
 
 export function Markers({ coords }: PropsType) {
-  // const coords = useAppSelector((data) => data.position.coordsPosition);
   const map = useMap();
+
   const bounds = L.latLngBounds([
     [coords.startLongitude, coords.startLatitude],
     [coords.endLongitude, coords.endLatitude],

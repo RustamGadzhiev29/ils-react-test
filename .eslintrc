@@ -16,16 +16,6 @@
         "node": true
     },
     "rules": {
-        "comma-dangle": [
-            "error",
-            {
-                "arrays": "always-multiline",
-                "objects": "always-multiline",
-                "imports": "always-multiline",
-                "exports": "always-multiline",
-                "functions": "always-multiline"
-            }
-        ],
         "max-len": [0],
         "import/prefer-default-export": "off",
         "import/no-cycle": "off",
@@ -51,7 +41,7 @@
         "react/destructuring-assignment": [ 1, "always", { "ignoreClassFields": true }],
         "react/jsx-props-no-spreading": "warn",
         "react/jsx-max-props-per-line": [ 1, { "maximum": 2, "when": "multiline" }],
-        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/rules-of-hooks": "warn",
         // "react-hooks/exhaustive-deps": "warn",
         "react/state-in-constructor": "off",
         "max-classes-per-file": "off",
