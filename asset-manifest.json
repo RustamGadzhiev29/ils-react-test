@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ils-react-test/static/css/main.0d4904fd.css",
+    "main.js": "/ils-react-test/static/js/main.2d8d0b98.js",
+    "static/js/787.0bb048f1.chunk.js": "/ils-react-test/static/js/787.0bb048f1.chunk.js",
+    "index.html": "/ils-react-test/index.html",
+    "main.0d4904fd.css.map": "/ils-react-test/static/css/main.0d4904fd.css.map",
+    "main.2d8d0b98.js.map": "/ils-react-test/static/js/main.2d8d0b98.js.map",
+    "787.0bb048f1.chunk.js.map": "/ils-react-test/static/js/787.0bb048f1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d4904fd.css",
+    "static/js/main.2d8d0b98.js"
+  ]
+}
