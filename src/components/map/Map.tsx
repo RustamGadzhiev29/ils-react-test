@@ -2,7 +2,6 @@ import React from "react";
 import { MapContainer, Polyline, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Markers } from "../markers/Markers";
-import { LatLngExpression } from "leaflet";
 import styles from "./Map.module.scss";
 import { useAppSelector } from "../../store/store";
 import {
@@ -13,11 +12,6 @@ import {
 const Map: React.FC = () => {
   const positionCoords = useAppSelector(selectPositionCoords);
   const route = useAppSelector(selectRoute);
-  const defaultCenterCoord: LatLngExpression[] = [
-    { lat: 59.9342802, lng: 30.3350986 },
-  ];
-
-  defaultCenterCoord.map((m) => m);
 
   return (
     <MapContainer
